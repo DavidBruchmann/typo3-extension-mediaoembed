@@ -10,19 +10,16 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'fe',
     'constraints' => [
         'depends' => [
-            'typo3' => '7.6.0-10.4.99',
+            'typo3' => '^11.4',
             'extbase' => '',
         ],
         'conflicts' => [],
         'suggests' => [],
     ],
-    'loadOrder' => '',
     'state' => 'stable',
-    'uploadfolder' => 0,
-    'createDirs' => '',
-    'clearCacheOnLoad' => 1,
+    'clearCacheOnLoad' => true,
     'author' => 'Alexander Stehlik',
     'author_email' => 'alexander.stehlik.deleteme@gmail.com',
     'author_company' => '',
-    'version' => '2.1.0-dev',
+    'version' => '3.0.0-dev',
 ];

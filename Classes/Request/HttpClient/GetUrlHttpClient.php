@@ -2,8 +2,11 @@
 
 namespace Sto\Mediaoembed\Request\HttpClient;
 
+use GuzzleHttp\Exception\RequestException;
 use Sto\Mediaoembed\Exception\HttpClientRequestException;
+use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class GetUrlHttpClient implements HttpClientInterface
 {
@@ -14,17 +17,23 @@ class GetUrlHttpClient implements HttpClientInterface
      */
     public function executeGetRequest(string $requestUrl): string
     {
-        $report = [];
-        $responseData = (string)GeneralUtility::getURL($requestUrl, 0, false, $report);
-        if ($report['error'] === 0) {
-            return $responseData;
+        $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
+        try {
+            $response = $requestFactory->request($requestUrl);
+        } catch (RequestException $exception) {
+            return false;
+        }
+
+        $content = $response->getBody()->getContents();
+        if($content) {
+            return $content;
         }
 
         throw new HttpClientRequestException(
-            $report['message'],
-            $this->getErrorCode($report),
+            'fetching of URL '.$requestUrl.' not successful',
+            $response->getStatusCode(),
             null,
-            $report['error']
+            $response->getReasonPhrase()
         );
     }
 
