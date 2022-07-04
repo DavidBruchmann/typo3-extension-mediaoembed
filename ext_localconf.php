@@ -7,10 +7,8 @@
 defined('TYPO3') or die();
 
 $bootMediaoembed = function () {
-    $currentVersion = \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version();
+
     $lllPrefix = 'LLL:' . 'EXT:mediaoembed/Resources/Private/Language/locallang_db.xlf:';
-
-
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Mediaoembed',
@@ -41,8 +39,7 @@ mod.wizards.newContentElement {
 '
     );
 
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tce']['formevals'][\Sto\Mediaoembed\Backend\AspectRatioEvaluation::class]
-        = '';
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tce']['formevals'][\Sto\Mediaoembed\Backend\AspectRatioEvaluation::class] = '';
 
     $dispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
     /** @uses \Sto\Mediaoembed\Backend\EditDocumentControllerHooks::addJsLanguageLabels() */
